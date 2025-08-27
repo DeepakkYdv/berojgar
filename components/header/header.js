@@ -2,48 +2,47 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // using lucide icons for hamburger
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter,usePathname } from "next/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-
+  const router = useRouter()
+  const pathname = usePathname()
   return (
     <header className="max-w-full mx-auto px-4 sm:px-8 lg:px-[8rem] flex justify-between items-center mb-8 bg-white py-4 shadow-md">
       {/* Logo */}
       <div className="text-2xl font-bold text-blue-900">
-        SarkariResult<span className="text-green-600">HUB</span>
+        SarkariResult<span className="text-red-500">HUB</span>
       </div>
-
       {/* Desktop Nav */}
-      <nav className="hidden md:flex space-x-6 text-gray-700 font-bold text-lg">
+      <nav className="hidden md:flex space-x-6 text-blue-900 font-bold text-lg">
         <Link
           href="/"
-          className={router.pathname === "/" ? "text-green-600" : ""}
+          className={pathname === "/" ? "text-red-600" : ""}
         >
           Home
         </Link>
         <Link
-          href="/sarkari-jobs"
-          className={router.pathname === "/sarkari-jobs" ? "text-green-600" : ""}
+          href="/Engineering-jobs"
+          className={pathname === "/Engineering-jobs" ? "text-red-600" : ""}
         >
-          Sarkari Jobs
+          Engineering Jobs
         </Link>
         <Link
           href="/admit-card"
-          className={router.pathname === "/admit-card" ? "text-green-600" : ""}
+          className={pathname === "/admit-card" ? "text-red-600" : ""}
         >
           Admit Card
         </Link>
         <Link
           href="/results"
-          className={router.pathname === "/results" ? "text-green-600" : ""}
+          className={pathname === "/results" ? "text-red-600" : ""}
         >
           Result
         </Link>
         <Link
           href="/free-test"
-          className={router.pathname === "/free-test" ? "text-green-600" : ""}
+          className={pathname === "/free-test" ? "text-red-600" : ""}
         >
           Free Test
         </Link>
@@ -51,18 +50,18 @@ export default function Header() {
 
       {/* Desktop Buttons */}
       <div className="hidden md:flex items-center space-x-4">
-        <button className="bg-green-600 text-white px-4 py-2 rounded-full">
+        {/* <button className="bg-green-600 text-white px-4 py-2 rounded-full">
           + Host
-        </button>
-        <a href="#" className="text-gray-700">
-          Login
+        </button> */}
+        <a href="#" className="text-red-500 font-semibold">
+          Login / SignUp
         </a>
-        <a
+        {/* <a
           href="#"
           className="border border-green-600 px-4 py-2 rounded-full text-green-600"
         >
           For Employers
-        </a>
+        </a> */}
       </div>
 
       {/* Mobile Hamburger */}

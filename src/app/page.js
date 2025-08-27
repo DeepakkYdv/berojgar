@@ -1,43 +1,32 @@
 'use client';
-import React from "react";
+import React, { useEffect } from "react";
 import Listsection from "../../components/listOfcards/Listsection";
 import Header from "../../components/header/header";
-import { useRouter } from "next/navigation";
+import {useState } from "react";
 
 export default function JobsPage() {
-  const jobs = [
-    {
-      company: "NICE",
-      title: "Software Engineer",
-      location: "Hybrid - Pune",
-      salary: "9-17 LPA",
-      type: "Full Time",
-      views: 2054,
-      endDate: "30 Aug",
-      logo: "https://via.placeholder.com/50"
-    },
-    {
-      company: "Cummins",
-      title: "SOFTWARE ENGINEER I",
-      location: "Hybrid - Pune",
-      salary: "9-15 LPA",
-      type: "Full Time",
-      views: 1997,
-      endDate: "29 Aug",
-      logo: "https://via.placeholder.com/50"
-    },
-    {
-      company: "Abnormal AI",
-      title: "Software Engineer I",
-      location: "Hybrid - Bangalore Urban",
-      salary: "22-25 LPA",
-      type: "Full Time",
-      views: 2096,
-      endDate: "29 Aug",
-      logo: "https://via.placeholder.com/50"
+
+const [jobs, setJobs] = useState([]);
+
+useEffect(() => {
+  const fetchJobs = async () => {
+    try {
+      const res = await fetch(`/api/engineeringHub?limit=${3}`); // call your backend API
+      const data = await res.json();
+      console.log("Fetched jobs:", data);
+
+      if (data.success) {
+        setJobs(data.jobs); // set jobs from API response
+      } else {
+        console.error("Failed to fetch jobs:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
     }
-  ];
-  const router = useRouter();
+  };
+
+  fetchJobs();
+}, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -64,17 +53,16 @@ export default function JobsPage() {
 
       {/* Job Listings */}
       <div className="space-y-8 mb-12">
-        
       <Listsection data={{ title: "Featured Jobs" }} jobs={jobs} />
       </div>
        {/* Admit Card Listings */}
       <div className="space-y-8 mb-12">
       <Listsection data={{ title: "Latest Admit Cards" }} jobs={jobs} />
       </div>
+
       <div className="space-y-8 mb-12">
       <Listsection data={{ title: "Latest Result" }} jobs={jobs} />
       </div>
-
       {/* Footer */}
       <footer className="bg-gray-100 py-6 mt-12">
         <div className="max-w-6xl mx-auto text-center text-gray-600">
