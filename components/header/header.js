@@ -23,7 +23,7 @@ export default function Header() {
           Home
         </Link>
         <Link
-          href="/Engineering-jobs"
+          href="/engineering-jobs"
           className={pathname === "/Engineering-jobs" ? "text-red-600" : ""}
         >
           Engineering Jobs
